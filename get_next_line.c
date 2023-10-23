@@ -6,7 +6,7 @@
 /*   By: adenord <alexandre.denord@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 14:53:42 by adenord           #+#    #+#             */
-/*   Updated: 2023/10/22 22:55:44 by adenord          ###   ########.fr       */
+/*   Updated: 2023/10/23 16:09:25 by adenord          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,10 @@ static char	*find_line(int fd, char **storage)
 		return (NULL);
 	while (storage[fd][i] && storage[fd][i] != '\n')
 		i++;
-	ret = ft_substr(storage[fd], 0, i + 1);
-	tmp = ft_substr(storage[fd], i + 1, ft_strlen(&storage[fd][i]));
+	if (storage[fd][i] == '\n')
+		i++;
+	ret = ft_substr(storage[fd], 0, i);
+	tmp = ft_substr(storage[fd], i, ft_strlen(&storage[fd][i]));
 	free(storage[fd]);
 	storage[fd] = tmp;
 	if (ft_strlen(ret) == 0)
@@ -61,9 +63,8 @@ static char	*find_line(int fd, char **storage)
 	return (ret);
 }
 
-static char	*reading_fd(int fd, char **storage)
+static char	*reading_fd(int fd, char **storage, char *tmp)
 {
-	char	tmp[BUFFER_SIZE + 1];
 	ssize_t	bytes_read;
 	char	*tmp2;
 
@@ -91,12 +92,15 @@ static char	*reading_fd(int fd, char **storage)
 
 char	*get_next_line(int fd)
 {
-	static char	*storage[OPEN_MAX];
+	static char	*storage[1024];
 	char		*ret;
+	char		*tmp;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	storage[fd] = reading_fd(fd, storage);
+	tmp = (char *)malloc((BUFFER_SIZE + 1) * sizeof(char));
+	storage[fd] = reading_fd(fd, storage, tmp);
+	free(tmp);
 	ret = find_line(fd, storage);
 	return (ret);
 }

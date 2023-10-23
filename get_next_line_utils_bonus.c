@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adenord <alexandre.denord@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 10:35:02 by adenord           #+#    #+#             */
-/*   Updated: 2023/10/22 22:52:25 by adenord          ###   ########.fr       */
+/*   Updated: 2023/10/23 16:12:15 by adenord          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 char	*ft_strchr(const char *s, int c)
 {
@@ -41,7 +41,7 @@ char	*ft_strdup(const char *s1)
 	dest = (char *)malloc(sizeof(char) * src_len + 1);
 	if (!dest)
 		return (0);
-	ft_memset(dest, 0, sizeof(dest));
+	ft_memset(dest, 0, src_len + 1);
 	while (s1[i])
 	{
 		dest[i] = s1[i];
@@ -90,7 +90,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	ret = (char *)malloc(len * sizeof(char));
 	if (!ret)
 		return (NULL);
-	ft_memset(ret, 0, sizeof(ret));
+	ft_memset(ret, 0, len);
 	ft_strcat(ret, s1);
 	ft_strcat(ret, s2);
 	return (ret);
@@ -101,10 +101,8 @@ char	*ft_strcat(char *s1, const char *s2)
 	unsigned int	i;
 	unsigned int	y;
 
-	i = 0;
+	i = ft_strlen(s1);
 	y = 0;
-	while (s1[i])
-		i++;
 	while (s2[y])
 	{
 		s1[i + y] = s2[y];
