@@ -6,7 +6,7 @@
 /*   By: adenord <alexandre.denord@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 14:53:42 by adenord           #+#    #+#             */
-/*   Updated: 2023/10/23 16:09:25 by adenord          ###   ########.fr       */
+/*   Updated: 2023/10/23 17:37:43 by adenord          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,8 @@ static char	*reading_fd(int fd, char **storage, char *tmp)
 	bytes_read = 1;
 	while (bytes_read >= 0)
 	{
-		ft_memset(tmp, 0, sizeof(tmp));
+		ft_memset(tmp, 0, BUFFER_SIZE + 1);
 		bytes_read = read(fd, tmp, BUFFER_SIZE);
-		tmp[bytes_read] = 0;
 		if (bytes_read < 0)
 			return (NULL);
 		if (!storage[fd])
