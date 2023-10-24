@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adenord <alexandre.denord@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 14:53:42 by adenord           #+#    #+#             */
-/*   Updated: 2023/10/23 18:59:15 by adenord          ###   ########.fr       */
+/*   Updated: 2023/10/24 07:10:51 by adenord          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ static char	*reading_fd(int fd, char **storage, char *tmp)
 			free(storage[fd]);
 			storage[fd] = tmp2;
 		}
-		if (ft_strchr(storage[fd], '\n') || bytes_read == 0)
+		if (storage[fd] && (ft_strchr(storage[fd], '\n') || bytes_read == 0))
 			return (storage[fd]);
 	}
 	return (NULL);
